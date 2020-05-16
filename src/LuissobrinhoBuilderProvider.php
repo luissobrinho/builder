@@ -14,6 +14,7 @@ use Luissobrinho\Builder\Console\Queue;
 use Luissobrinho\Builder\Console\Socialite;
 use Luissobrinho\Builder\Console\Starter;
 use Illuminate\Support\ServiceProvider;
+use Luissobrinho\LCrud\LCrudProvider;
 
 class LuissobrinhoBuilderProvider extends ServiceProvider
 {
