@@ -1,7 +1,5 @@
 # Luissobrinho Builder
 
-> Luissobrinho has archived this project and no longer supports or develops the code. We recommend using only as a source of ideas for your own code.
-
 **Builder** - A handful of tools for Rapid Laravel Development
 
 [![Build Status](https://travis-ci.org/Luissobrinho/Builder.svg?branch=master)](https://travis-ci.org/Luissobrinho/Builder)
