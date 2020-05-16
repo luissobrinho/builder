@@ -19,7 +19,7 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 0.0.2 | yes |
+| 6.x - 7.x | 0.0.3 | yes |
 
 ## Installation
 
