@@ -1,0 +1,41 @@
+{
+    "name": "luissobrinho/builder",
+    "description": "Prepare your Laravel apps incredibly fast, with various commands, services, facades and boilerplates.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matt Lantz",
+            "email": "mattlantz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "doctrine/dbal": "^2.10",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1",
+        "mockery/mockery": "^1.3",
+        "mikey179/vfsstream": "^1.6",
+        "orchestra/testbench": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Luissobrinho\\Builder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Luissobrinho\\Builder\\LuissobrinhoBuilderProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
