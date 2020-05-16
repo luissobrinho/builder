@@ -14,11 +14,12 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## General Requirements
 1. PHP 7.3+
 2. OpenSSL
+2. JSON
 
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 1.0 | no |
+| 6.x - 7.x | 0.0.2 | yes |
 
 ## Installation
 
