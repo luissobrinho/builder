@@ -64,6 +64,12 @@ php artisan luissobrinho:starter
 
 In order to make use of the <u>starter kit</u> you will need to modify some files. Check out the modifications below:
 
+Alter `public const HOME = '/home';` by:
+
+```
+public const HOME = '/dashboard';
+```
+
 Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 
 ```
@@ -99,8 +105,8 @@ Gate::define('team-member', function ($user, $team) {
 Add the following to 'app/Providers/EventServiceProvider.php' in the $listen property
 
 ```php
-'App\Events\UserRegisteredEmail' => [
-    'App\Listeners\UserRegisteredEmailListener',
+ \App\Events\UserRegisteredEmail::class => [
+    \App\Listeners\UserRegisteredEmailListener::class,
 ],
 ```
 
@@ -126,7 +132,6 @@ The Starter kit has an email activation component added to the app to ensure you
 You can disable it by removing the `active` middleware from the `web` routes. You will also have to disable the Notification but it
 won't cause any problems if you remove the email activation.
 
-### For Laravel 5.2 and later
 You will also need to set the location of the email for password reminders. (config/auth.php - at the bottom)
 
 ```php
@@ -136,6 +141,7 @@ You will also need to set the location of the email for password reminders. (con
         'email' => 'emails.password',
         'table' => 'password_resets',
         'expire' => 60,
+        'throttle' => 60,
     ],
 ],
 ```
@@ -883,7 +889,6 @@ The command will overwrite any existing files with the billing version of them:
 * app/Models/UserMeta.php
 * config/invoice.php
 * config/plans.php
-* database/migrations/2016_02_26_000647_create_subscriptions_table.php
 * database/migrations/2016_02_26_000658_add_billings_to_user_meta.php
 * resources/assets/js/card.js
 * resources/assets/js/subscription.js
