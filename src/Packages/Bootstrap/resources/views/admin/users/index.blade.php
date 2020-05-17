@@ -29,6 +29,7 @@
                         <table class="table table-striped">
                             <thead>
                             <th>Email</th>
+                            <th>Is Active</th>
                             <th class="text-right" width="165px">Actions</th>
                             </thead>
                             <tbody>
@@ -36,6 +37,7 @@
                                 @if ($user->id !== Auth::id())
                                     <tr>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->meta->is_active ? 'Yes' : 'No' }}</td>
                                         <td>
                                             <div class="btn-toolbar justify-content-between">
                                                 <a class="btn btn-outline-primary btn-sm raw-margin-right-8" href="{{ url('admin/users/'.$user->id.'/edit') }}"><span class="fa fa-edit"></span> Edit</a>
