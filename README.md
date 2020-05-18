@@ -14,11 +14,12 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## General Requirements
 1. PHP 7.3+
 2. OpenSSL
+2. JSON
 
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 1.0 | no |
+| 6.x - 7.x | 0.0.5 | yes |
 
 ## Installation
 
@@ -38,7 +39,7 @@ Then run the following to add the Luissobrinho Builder
 composer require "luissobrinho/builder"
 ```
 
-Time to publish those assets! Luissobrinho Builder uses LCrud and FormMaker which have publishable assets.
+Time to publish those assets! Luissobrinho Builder uses LCrud and LForm which have publishable assets.
 
 ```
 php artisan vendor:publish
@@ -54,14 +55,17 @@ You now have Luissobrinho Builder installed. Try out the *Starter Kit*.
 
 !!! warning "Make sure you followed the getting started instructions!"
 
-Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command:
+Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command.
 
-```
-php artisan luissobrinho:starter
-```
-!!! tip "BUT, before we do that lets get a few things set up."
+!!! tip "BUT, before we do that let's get a few things set up."
 
 In order to make use of the <u>starter kit</u> you will need to modify some files. Check out the modifications below:
+
+Alter the following to your `app/Providers/RouteServiceProvider.php` in the const `HOME`.
+
+```php
+public const HOME = '/dashboard';
+```
 
 Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 
@@ -75,12 +79,6 @@ Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 If you don't want to worry about email activation then remove this from the route's middleware array:
 ```
 'active'
-```
-
-Update the `App\User::class` in: 'config/auth.php' and 'database/factories/UserFactory.php' to this:
-
-```php
-App\Models\User::class
 ```
 
 Add the following to 'app/Providers/AuthServiceProvider.php' in the boot method
@@ -98,25 +96,9 @@ Gate::define('team-member', function ($user, $team) {
 Add the following to 'app/Providers/EventServiceProvider.php' in the $listen property
 
 ```php
-'App\Events\UserRegisteredEmail' => [
-    'App\Listeners\UserRegisteredEmailListener',
+ \App\Events\UserRegisteredEmail::class => [
+    \App\Listeners\UserRegisteredEmailListener::class,
 ],
-```
-
-You will want to create an sqlite memory test database in the `config/database.php`
-
-```php
-'testing' => [
-    'driver'   => 'sqlite',
-    'database' => ':memory:',
-    'prefix'   => '',
-],
-```
-
-Add the following line to the 'phpunit.xml' file
-```xml
-<env name="DB_CONNECTION" value="testing"/>
-<env name="MAIL_DRIVER" value="log"/>
 ```
 
 ### Regarding Email Activation
@@ -125,7 +107,6 @@ The Starter kit has an email activation component added to the app to ensure you
 You can disable it by removing the `active` middleware from the `web` routes. You will also have to disable the Notification but it
 won't cause any problems if you remove the email activation.
 
-### For Laravel 5.2 and later
 You will also need to set the location of the email for password reminders. (config/auth.php - at the bottom)
 
 ```php
@@ -135,6 +116,7 @@ You will also need to set the location of the email for password reminders. (con
         'email' => 'emails.password',
         'table' => 'password_resets',
         'expire' => 60,
+        'throttle' => 60,
     ],
 ],
 ```
@@ -405,6 +387,8 @@ You can set permissions in the `config/permissions.php`
 !!! Tip "Bootstrap Version 4"
 
 If you feel like opting in for the Application starter kit. You also have a great bootstrapping option for the views. You can blast through the initial building of an app and hit the ground running!
+
+>  You can use [LCrud](https://github.com/luissobrinho/lcrud) to create magical CRUDs for Laravel
 
 ```
 php artisan luissobrinho:bootstrap
@@ -882,7 +866,6 @@ The command will overwrite any existing files with the billing version of them:
 * app/Models/UserMeta.php
 * config/invoice.php
 * config/plans.php
-* database/migrations/2016_02_26_000647_create_subscriptions_table.php
 * database/migrations/2016_02_26_000658_add_billings_to_user_meta.php
 * resources/assets/js/card.js
 * resources/assets/js/subscription.js

@@ -4,10 +4,10 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
                     <form method="post" action="{{ route('teams.store') }}">
                         {!! csrf_field() !!}
 

@@ -26,8 +26,8 @@ class RolesTableSeeder extends Seeder
                 'label' => 'App',
             ]);
             Role::create([
-                'name' => 'member',
-                'label' => 'Member',
+                'name' => 'regular',
+                'label' => 'Regular',
             ]);
         }
     }

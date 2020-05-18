@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Providers\RouteServiceProvider;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Validator;

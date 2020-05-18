@@ -2,6 +2,7 @@
 
 namespace Luissobrinho\Builder\Console;
 
+use Illuminate\Support\Facades\Artisan;
 use Luissobrinho\Builder\Console\LuissobrinhoCommand;
 use Luissobrinho\Builder\Traits\FileMakerTrait;
 use Illuminate\Filesystem\Filesystem;
@@ -41,6 +42,10 @@ class Bootstrap extends LuissobrinhoCommand
             }
 
             $this->info("\n\nThese files will be published\n");
+
+            Artisan::call('ui', ['bootstrap']);
+
+            $this->info("\n\nRun -> php artisan ui bootstrap\n");
 
             $result = $this->confirm('Are you sure you want to overwrite any files of the same name?');
 

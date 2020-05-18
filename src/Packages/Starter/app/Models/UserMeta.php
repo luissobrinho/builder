@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserMeta extends Model
 {
@@ -31,11 +31,11 @@ class UserMeta extends Model
     /**
      * User
      *
-     * @return Relationship
+     * @return BelongsTo
      */
     public function user()
     {
-        return User::where('id', $this->user_id)->first();
+        return $this->belongsTo(User::class);
     }
 
 }
