@@ -19,7 +19,7 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 0.0.3 | yes |
+| 6.x - 7.x | 0.0.4 | yes |
 
 ## Installation
 
@@ -39,7 +39,7 @@ Then run the following to add the Luissobrinho Builder
 composer require "luissobrinho/builder"
 ```
 
-Time to publish those assets! Luissobrinho Builder uses LCrud and FormMaker which have publishable assets.
+Time to publish those assets! Luissobrinho Builder uses LCrud and LForm which have publishable assets.
 
 ```
 php artisan vendor:publish
@@ -55,18 +55,15 @@ You now have Luissobrinho Builder installed. Try out the *Starter Kit*.
 
 !!! warning "Make sure you followed the getting started instructions!"
 
-Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command:
+Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command.
 
-```
-php artisan luissobrinho:starter
-```
-!!! tip "BUT, before we do that lets get a few things set up."
+!!! tip "BUT, before we do that let's get a few things set up."
 
 In order to make use of the <u>starter kit</u> you will need to modify some files. Check out the modifications below:
 
-Alter `public const HOME = '/home';` by:
+Alter the following to your `app/Providers/RouteServiceProvider.php` in the const `HOME`.
 
-```
+```php
 public const HOME = '/dashboard';
 ```
 
@@ -82,12 +79,6 @@ Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 If you don't want to worry about email activation then remove this from the route's middleware array:
 ```
 'active'
-```
-
-Update the `App\User::class` in: 'config/auth.php' and 'database/factories/UserFactory.php' to this:
-
-```php
-App\Models\User::class
 ```
 
 Add the following to 'app/Providers/AuthServiceProvider.php' in the boot method
@@ -108,22 +99,6 @@ Add the following to 'app/Providers/EventServiceProvider.php' in the $listen pro
  \App\Events\UserRegisteredEmail::class => [
     \App\Listeners\UserRegisteredEmailListener::class,
 ],
-```
-
-You will want to create an sqlite memory test database in the `config/database.php`
-
-```php
-'testing' => [
-    'driver'   => 'sqlite',
-    'database' => ':memory:',
-    'prefix'   => '',
-],
-```
-
-Add the following line to the 'phpunit.xml' file
-```xml
-<env name="DB_CONNECTION" value="testing"/>
-<env name="MAIL_DRIVER" value="log"/>
 ```
 
 ### Regarding Email Activation
@@ -412,6 +387,8 @@ You can set permissions in the `config/permissions.php`
 !!! Tip "Bootstrap Version 4"
 
 If you feel like opting in for the Application starter kit. You also have a great bootstrapping option for the views. You can blast through the initial building of an app and hit the ground running!
+
+>  You can use [LCrud](https://github.com/luissobrinho/lcrud) to create magical CRUDs for Laravel
 
 ```
 php artisan luissobrinho:bootstrap
