@@ -43,7 +43,7 @@ class Bootstrap extends LuissobrinhoCommand
 
             $this->info("\n\nThese files will be published\n");
 
-            Artisan::call('ui', ['bootstrap']);
+            Artisan::call('ui', ['type' => 'bootstrap']);
 
             $this->info("\n\nRun -> php artisan ui bootstrap\n");
 
