@@ -28,7 +28,7 @@ class Bootstrap extends LuissobrinhoCommand
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
