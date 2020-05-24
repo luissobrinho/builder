@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Luissobrinho\Builder\Console\LuissobrinhoCommand;
 use Luissobrinho\Builder\Traits\FileMakerTrait;
 use Illuminate\Filesystem\Filesystem;
+use mysql_xdevapi\Exception;
 
 class Bootstrap extends LuissobrinhoCommand
 {
@@ -43,11 +44,13 @@ class Bootstrap extends LuissobrinhoCommand
 
             $this->info("\n\nThese files will be published\n");
 
-            Artisan::call('ui', ['type' => 'bootstrap']);
+            if (!PHPUNIT_TEST_SUITE) {
+                Artisan::call('ui', ['type' => 'bootstrap']);
+            }
 
             $this->info("\n\nRun -> php artisan ui bootstrap\n");
 
-            $result = $this->confirm('Are you sure you want to overwrite any files of the same name?');
+            $result = $this->confirm('Are you sure you want to overwrite any files of the same name?', true);
 
             if ($result) {
                 $this->copyPreparedFiles(__DIR__.'/../Packages/Bootstrap/', base_path());
