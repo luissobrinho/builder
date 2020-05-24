@@ -19,7 +19,7 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 0.0.9 | yes |
+| 6.x - 7.x | 0.0.10 | yes |
 
 ## Installation
 
@@ -501,7 +501,7 @@ Features::isActive($key);
 
 ##### Blade
 
-```php
+```blade
 @feature($key)
 // code goes here
 @endfeature
