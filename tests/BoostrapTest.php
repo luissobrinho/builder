@@ -1,8 +1,13 @@
 <?php
 
+use Illuminate\Support\Str;
+
 class BootstrapTest extends TestCase
 {
-    public function setUp()
+    /**
+     * @return void
+     */
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,7 +27,7 @@ class BootstrapTest extends TestCase
     public function testFilesExist()
     {
         $contents = file_get_contents(base_path('resources/views/dashboard/panel.blade.php'));
-        $this->assertTrue(str_contains($contents, '<a class="nav-link"'));
+        $this->assertTrue(Str::contains($contents, '<a class="nav-link"'));
         $this->assertTrue(file_exists(base_path('resources/sass/_base.scss')));
     }
 }
