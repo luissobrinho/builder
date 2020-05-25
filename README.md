@@ -2,7 +2,7 @@
 
 **Builder** - A handful of tools for Rapid Laravel Development
 
-[![Build Status](https://travis-ci.org/Luissobrinho/Builder.svg?branch=master)](https://travis-ci.org/Luissobrinho/Builder)
+[![Build Status](https://travis-ci.org/luissobrinho/builder.svg?branch=develop)](https://travis-ci.org/Luissobrinho/Builder)
 [![Packagist](https://img.shields.io/packagist/dt/luissobrinho/builder.svg)](https://packagist.org/packages/luissobrinho/builder)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/luissobrinho/builder)
 
