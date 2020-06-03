@@ -4,33 +4,39 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-12">
-            <form method="POST" action="/admin/users/invite">
-                {!! csrf_field() !!}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <form method="POST" action="/admin/users/invite">
+                            {!! csrf_field() !!}
 
-                <div>
-                    @input_maker_label('Email')
-                    @input_maker_create('email', ['type' => 'string'])
-                </div>
+                            <div>
+                                @input_maker_label('Email')
+                                @input_maker_create('email', ['type' => 'string'])
+                            </div>
 
-                <div class="raw-margin-top-24">
-                    @input_maker_label('Name')
-                    @input_maker_create('name', ['type' => 'string'])
-                </div>
+                            <div class="raw-margin-top-24">
+                                @input_maker_label('Name')
+                                @input_maker_create('name', ['type' => 'string'])
+                            </div>
 
-                <div class="raw-margin-top-24">
-                    @input_maker_label('Role')
-                    @input_maker_create('roles', ['type' => 'relationship', 'model' => 'App\Models\Role', 'label' => 'label', 'value' => 'name'])
-                </div>
+                            <div class="raw-margin-top-24">
+                                @input_maker_label('Role')
+                                @input_maker_create('roles', ['type' => 'relationship', 'model' => 'App\Models\Role', 'label' => 'label', 'value' => 'name'])
+                            </div>
 
-                <div class="raw-margin-top-24">
-                    <div class="btn-toolbar justify-content-between">
-                        <button class="btn btn-primary" type="submit">Invite</button>
-                        <a class="btn btn-secondary" href="/admin/users">Cancel</a>
+                            <div class="raw-margin-top-24">
+                                <div class="btn-toolbar justify-content-between">
+                                    <button class="btn btn-primary" type="submit">Invite</button>
+                                    <a class="btn btn-secondary" href="/admin/users">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

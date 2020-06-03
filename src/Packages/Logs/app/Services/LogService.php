@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class LogService
 {
@@ -80,7 +81,7 @@ class LogService
             $files = glob($path.'/*');
         }
 
-        if (count($files) === 1 && str_contains($files[0], 'laravel.log')) {
+        if (count($files) === 1 && Str::contains($files[0], 'laravel.log')) {
             return [];
         }
 

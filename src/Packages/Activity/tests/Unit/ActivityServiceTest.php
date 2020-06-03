@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Services\ActivityService;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Services\RoleService;
 
 class ActivityServiceTest extends TestCase
 {
@@ -11,7 +11,7 @@ class ActivityServiceTest extends TestCase
 
     protected $service;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->service = $this->app->make(ActivityService::class);

@@ -2,15 +2,27 @@
 
 namespace App\Models;
 
-use App\Models\Role;
-use App\Models\Team;
-use App\Models\UserMeta;
 use App\Notifications\ResetPassword;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ *
+ * @property int id
+ * @property string name
+ * @property string email
+ * @property string password
+ * @property Collection roles
+ * @property Collection teams
+ * @method $this where($column, $operator = null, $value = null, $boolean = 'and')
+ *
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -76,10 +88,13 @@ class User extends Authenticatable
      */
     public function hasPermission($permission)
     {
-        return $this->roles->each(function ($role) use ($permission) {
+        return $this->roles->map(function ($role) use ($permission) {
             if (in_array($permission, explode(',', $role->permissions))) {
                 return true;
             }
+            return false;
+        })->contains(function ($value) {
+            return $value === true;
         });
     }
 
@@ -96,6 +111,7 @@ class User extends Authenticatable
     /**
      * Team member
      *
+     * @param integer $id
      * @return boolean
      */
     public function isTeamMember($id)
@@ -107,10 +123,12 @@ class User extends Authenticatable
     /**
      * Team admin
      *
+     * @param integer $id
      * @return boolean
      */
     public function isTeamAdmin($id)
     {
+        /** @var Team $team */
         $team = $this->teams->find($id);
 
         if ($team) {
@@ -124,7 +142,7 @@ class User extends Authenticatable
      * Find by Email
      *
      * @param  string $email
-     * @return User
+     * @return User|null|object
      */
     public function findByEmail($email)
     {

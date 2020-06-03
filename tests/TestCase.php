@@ -1,7 +1,13 @@
 <?php
 
+use Illuminate\Foundation\Application;
+use Luissobrinho\Builder\LuissobrinhoBuilderProvider;
+
 class TestCase extends Orchestra\Testbench\TestCase
 {
+    /**
+     * @var Application
+     */
     protected $app;
 
     protected function getEnvironmentSetUp($app)
@@ -18,11 +24,14 @@ class TestCase extends Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            \Luissobrinho\Builder\LuissobrinhoBuilderProvider::class,
+            LuissobrinhoBuilderProvider::class,
         ];
     }
 
-    public function setUp()
+    /**
+     * @return void
+     */
+    public function setUp(): void
     {
         parent::setUp();
         $this->withFactories(__DIR__.'/../src/Models/Factories');

@@ -8,12 +8,27 @@ class RoleServiceTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @var RoleService
+     */
     protected $service;
+
+    /**
+     * @var array
+     */
     protected $originalArray;
+
+    /**
+     * @var array
+     */
     protected $editedArray;
+
+    /**
+     * @var string
+     */
     protected $searchTerm;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->service = $this->app->make(RoleService::class);

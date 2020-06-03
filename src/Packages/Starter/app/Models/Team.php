@@ -6,6 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Class Team
+ *
+ * @property integer user_id
+ * @property string name
+ * @package App\Models
+ */
 class Team extends Model
 {
     public $table = "teams";

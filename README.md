@@ -2,7 +2,8 @@
 
 **Builder** - A handful of tools for Rapid Laravel Development
 
-[![Build Status](https://travis-ci.org/Luissobrinho/Builder.svg?branch=master)](https://travis-ci.org/Luissobrinho/Builder)
+[![Latest Version](https://img.shields.io/packagist/v/luissobrinho/builder.svg)](https://packagist.org/packages/luissobrinho/builder)
+[![Build Status](https://travis-ci.org/luissobrinho/builder.svg?branch=develop)](https://travis-ci.org/Luissobrinho/Builder)
 [![Packagist](https://img.shields.io/packagist/dt/luissobrinho/builder.svg)](https://packagist.org/packages/luissobrinho/builder)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/luissobrinho/builder)
 
@@ -14,11 +15,12 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## General Requirements
 1. PHP 7.3+
 2. OpenSSL
+2. JSON
 
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 1.0 | no |
+| 6.x - 7.x | 0.0.10 | yes |
 
 ## Installation
 
@@ -38,7 +40,7 @@ Then run the following to add the Luissobrinho Builder
 composer require "luissobrinho/builder"
 ```
 
-Time to publish those assets! Luissobrinho Builder uses LCrud and FormMaker which have publishable assets.
+Time to publish those assets! Luissobrinho Builder uses LCrud and LForm which have publishable assets.
 
 ```
 php artisan vendor:publish
@@ -54,14 +56,17 @@ You now have Luissobrinho Builder installed. Try out the *Starter Kit*.
 
 !!! warning "Make sure you followed the getting started instructions!"
 
-Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command:
+Luissobrinho Builder provides an elegant solution for starting an application by building the most basic views, controllers, models and migrations for your application. No need to use the `php artisan make:auth` because now you can easily start your whole application with this single command.
 
-```
-php artisan luissobrinho:starter
-```
-!!! tip "BUT, before we do that lets get a few things set up."
+!!! tip "BUT, before we do that let's get a few things set up."
 
 In order to make use of the <u>starter kit</u> you will need to modify some files. Check out the modifications below:
+
+Alter the following to your `app/Providers/RouteServiceProvider.php` in the const `HOME`.
+
+```php
+public const HOME = '/dashboard';
+```
 
 Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 
@@ -75,12 +80,6 @@ Add the following to your `app/Http/Kernel.php` in the `$routeMiddleware` array.
 If you don't want to worry about email activation then remove this from the route's middleware array:
 ```
 'active'
-```
-
-Update the `App\User::class` in: 'config/auth.php' and 'database/factories/UserFactory.php' to this:
-
-```php
-App\Models\User::class
 ```
 
 Add the following to 'app/Providers/AuthServiceProvider.php' in the boot method
@@ -98,25 +97,9 @@ Gate::define('team-member', function ($user, $team) {
 Add the following to 'app/Providers/EventServiceProvider.php' in the $listen property
 
 ```php
-'App\Events\UserRegisteredEmail' => [
-    'App\Listeners\UserRegisteredEmailListener',
+ \App\Events\UserRegisteredEmail::class => [
+    \App\Listeners\UserRegisteredEmailListener::class,
 ],
-```
-
-You will want to create an sqlite memory test database in the `config/database.php`
-
-```php
-'testing' => [
-    'driver'   => 'sqlite',
-    'database' => ':memory:',
-    'prefix'   => '',
-],
-```
-
-Add the following line to the 'phpunit.xml' file
-```xml
-<env name="DB_CONNECTION" value="testing"/>
-<env name="MAIL_DRIVER" value="log"/>
 ```
 
 ### Regarding Email Activation
@@ -125,7 +108,6 @@ The Starter kit has an email activation component added to the app to ensure you
 You can disable it by removing the `active` middleware from the `web` routes. You will also have to disable the Notification but it
 won't cause any problems if you remove the email activation.
 
-### For Laravel 5.2 and later
 You will also need to set the location of the email for password reminders. (config/auth.php - at the bottom)
 
 ```php
@@ -135,6 +117,7 @@ You will also need to set the location of the email for password reminders. (con
         'email' => 'emails.password',
         'table' => 'password_resets',
         'expire' => 60,
+        'throttle' => 60,
     ],
 ],
 ```
@@ -406,6 +389,8 @@ You can set permissions in the `config/permissions.php`
 
 If you feel like opting in for the Application starter kit. You also have a great bootstrapping option for the views. You can blast through the initial building of an app and hit the ground running!
 
+>  You can use [LCrud](https://github.com/luissobrinho/lcrud) to create magical CRUDs for Laravel
+
 ```
 php artisan luissobrinho:bootstrap
 ```
@@ -517,7 +502,7 @@ Features::isActive($key);
 
 ##### Blade
 
-```php
+```blade
 @feature($key)
 // code goes here
 @endfeature
@@ -789,230 +774,29 @@ Finally set the access details in the services config:
 ],
 ```
 
-##### What Socialite publishes
-The command will overwrite any existing files with the socialite version of them:
+### Auditing
 
-* app/Http/Controllers/Auth/SocialiteAuthController.php
-* routes/socialite.php
-
-### Application Billing
-
-If you feel like opting in for the Luissobrinho Builder starter kit. You can also get your app's billing handled quickly with Luissobrinho Builder billing command and `Laravel/Cashier`. Luissobrinho Builder's billing will build a basic controller, views etc so you can stay focused on what makes your application amazing!
+This package will help you understand changes in your Eloquent models, by providing information about possible discrepancies and anomalies that could indicate business concerns or suspect activities.
 
 ##### Requires
 ```php
-composer require laravel/cashier
+composer require owen-it/laravel-auditing
 ```
+
+Essentially you want to do all the basic setup for Laravel Auditing such as everything in here:
+Then follow the directions regarding installation on: [http://www.laravel-auditing.com/docs/9.0/installation](http://www.laravel-auditing.com/docs/9.0/installation)
 
 ##### Setup
 ```
-php artisan luissobrinho:billing
+php artisan luissobrinho:auditing
 ```
 
-You have to modify the `app/Providers/RouteServiceProvider.php` in the `mapWebRoutes(Router $router)` function:
+##### What Auditing publishes
+The command will overwrite any existing files with the auditing version of them:
 
-You will see a line like: `->group(base_path('routes/web.php'));`
-
-You need to change it to resemble this:
-```php
-->group(function () {
-    require base_path('routes/web.php');
-    require base_path('routes/billing.php');
-}
-```
-
-Add these to the .env:
-```php
-SUBSCRIPTION=app_basic
-STRIPE_SECRET=secret-key
-STRIPE_PUBLIC=public-key
-```
-
-Add this to the app/Providers/AuthServiceProvider.php:
-```php
-Gate::define('access-billing', function ($user) {
-    return ($user->meta->subscribed('main') && is_null($user->meta->subscription('main')->endDate));
-});
-```
-
-And for the `config/services.php` you will want yours to resemble:
-```php
-'stripe' => [
-    'model'  => App\Models\UserMeta::class,
-    'key'    => env('STRIPE_PUBLIC'),
-    'secret' => env('STRIPE_SECRET'),
-],
-```
-
-Finally run migrate to add the subscriptions and bind them to the user meta:
-```php
-php artisan migrate
-```
-
-You will also want to update your webpack mix file to resemble (webpack.mix.js):
-```js
-.js([
-    'resources/assets/js/app.js',
-    'resources/assets/js/card.js',
-    'resources/assets/js/subscription.js'
-], 'public/js');
-```
-
-##### After Setup
-You may want to add this line to your navigation:
-
-```php
-<li><a href="{{ url('user/billing/details') }}"><span class="fa fa-dollar"></span> Billing</a></li>
-```
-
-##### Notes
-You may want to switch the line in the view vendor.receipt to:
-
-```php
-<strong>To:</strong> {{ $user->user()->email }}
-```
-
-We do this because rather than bind the billing to the User, we bound it to the UserMeta.
-
-##### What Billing Publishes
-
-The command will overwrite any existing files with the billing version of them:
-
-* app/Http/Controllers/User/BillingController.php
-* app/Models/UserMeta.php
-* config/invoice.php
-* config/plans.php
-* database/migrations/2016_02_26_000647_create_subscriptions_table.php
-* database/migrations/2016_02_26_000658_add_billings_to_user_meta.php
-* resources/assets/js/card.js
-* resources/assets/js/subscription.js
-* resources/views/billing/card-form.blade.php
-* resources/views/billing/change-card.blade.php
-* resources/views/billing/details.blade.php
-* resources/views/billing/invoices.blade.php
-* resources/views/billing/coupons.blade.php
-* resources/views/billing/subscribe.blade.php
-* resources/views/billing/tabs.blade.php
-* routes/billing.php
-
-##### Accounts
-
-The Account service is a tool for handling your subscription details, meaning you can limit your applications based on various clauses using the plans config. You're free to set these plan details restricting things within a billing cycle or just in general.
-
-These are relative to *billing* only. They provide extra tools for handling restrictions in your application based on the plan the user subscribed to. Unless you implment the cashier billing system with the UserMeta structure provided by Laracogs it will not benefit you.
-
-##### Config
-This is the basic config for `config/plans.php`. This is for a single plan, either be subscribed or not.
-
-!!! tip "Remember you need to have corresponding plans on Stripe ex. app_basic by default"
-
-```
-'subscription' => env('SUBSCRIPTION'),
-'subscription_name' => 'main',
-'plans' => [
-    'app_basic' => [
-        'access' => [
-            'some name'
-        ],
-        'limits' => [
-            'Model\Namespace' => 5,
-            'pivot_table' => 1
-        ],
-        'credits' => [
-            'column' => 'credits_spent',
-            'limit' => 10
-        ],
-        'custom' => [
-            'anything' => 'anything'
-        ],
-    ],
-]
-```
-
-##### Multiple Plans
-
-In this config you can define multiple plans which can have different rules per plan. By default the kit uses a single plan. You can define this in the env as mentioned above. But if you want to do multiple plans you can change the following code:
-
-1. Line 45 of the `BillingController.php` change `config('plans.subscription')` to: `$payload['plan']`
-2. Add `name`, and `stripe_id` to the config
-```
-'subscription_name' => 'main',
-'plans' => [
-    'basic' => [
-        'name' => 'Basic Subscription',
-        'stripe_id' => 'basic_subscription',
-        'access' => [
-            'some name'
-        ],
-        'limits' => [
-            'Model\Namespace' => 5,
-            'pivot_table' => 1
-        ],
-        'credits' => [
-            'column' => 'credits_spent',
-            'limit' => 10
-        ],
-        'custom' => [
-            'anything' => 'anything'
-        ],
-    ],
-]
-```
-3. Then add the following code in `resources/views/billing/subscribe.blade.php` above the card form include:
-
-```html
-<div class="form-group">
-    <label class="form-label" for="plan">Plan</label>
-    <select class="form-control" name="plan" id="plan">
-        @foreach (config('plans.plans') as $plan)
-            <option value="{{ $plan['stripe_id'] }}">{{ $plan['name'] }}</option>
-        @endforeach
-    </select>
-</div>
-```
-
-!!! tip "You may also want to add a component to your app to allow users to switch plans. You can use the swap method to achieve this: `auth()->user()->meta->subscription(config('plans.subscription_name'))->swap($request->plan)`"
-
-##### Service Methods
-
-<br>
-#### currentBillingCycle()
-By using this method at the beginning and chaining another method after it you enable the restriction of the query to be performed but restricting itself to the current billing cycle.
-
-<br>
-#### canAccess($area)
-Returns a boolean if the user can enter
-
-<br>
-#### cannotAccess($area)
-Returns a boolean if the user cannot enter
-
-<br>
-#### getClause($key)
-Returns the specified clause of the plans
-
-<br>
-#### getLimit($model)
-Returns the specified limit of a model or pivot table
-
-<br>
-#### withinLimit($model, $key = 'user_id', $value = {user's id})
-Confirms that the specified model only has the specified amount collected by the $key and $value.
-* If you add the `currentBillingCycle()` before this then it would add the further restrictions.
-
-<br>
-#### creditsUsed($model, $key = 'user_id', $value = {user's id})
-Reports back the specified amount collected by the $key and $value.
-* If you add the `currentBillingCycle()` before this then it would add the further restrictions.
-
-<br>
-#### creditsAvailable($model)
-Returns the number of credits remaining based on the config and the previous method.
-* If you add the `currentBillingCycle()` before this then it would add the further restrictions.
-
-<br>
-#### clause($key, $method, $model = null)
-Performs a custom method with rules defined by the clause name in the config. The Closure method in this is provided with the following parameters: $user, $subscription, $clause, $query
+* resources/lcrud/Model.txt
+* app/Listeners/AuditedListener.php
+* app/Listeners/AuditingListener.php
 
 ## License
 Luissobrinho Builder is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use URL;
 use Auth;
@@ -54,7 +55,7 @@ class SocialiteAuthController extends Controller
         }
 
         if (Auth::login($localUser)) {
-            return redirect('dashboard');
+            return redirect(RouteServiceProvider::home);
         }
 
         return redirect('/login')->with('error', 'Unable to login.');

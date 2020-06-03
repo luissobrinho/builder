@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
-        <testsuite name="Luissobrinho Builder Tests">
-            <directory>./tests/</directory>
+        <testsuite name="Tests">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="APP_NO_TEST" value="false"/>
+        <const name="APP_ENV" value="testing"/>
+        <const name="BCRYPT_ROUNDS" value="4"/>
+        <const name="CACHE_DRIVER" value="array"/>
+        <const name="DB_CONNECTION" value="sqlite"/>
+        <const name="DB_DATABASE" value=":memory:"/>
+        <const name="MAIL_MAILER" value="array"/>
+        <const name="QUEUE_CONNECTION" value="sync"/>
+        <const name="SESSION_DRIVER" value="array"/>
+        <const name="TELESCOPE_ENABLED" value="false"/>
+    </php>
 </phpunit>

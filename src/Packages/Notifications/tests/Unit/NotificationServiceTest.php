@@ -8,7 +8,27 @@ class NotificationServiceTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    /**
+     * @var NotificationService
+     */
+    private $service;
+
+    /**
+     * @var array
+     */
+    private $originalArray;
+
+    /**
+     * @var array
+     */
+    private $editedArray;
+
+    /**
+     * @var string
+     */
+    private $searchTerm;
+
+    public function setUp(): void
     {
         parent::setUp();
         $role = factory(App\Models\Role::class)->create();
@@ -45,7 +65,7 @@ class NotificationServiceTest extends TestCase
 
     public function testPaginated()
     {
-        $response = $this->service->paginated(25);
+        $response = $this->service->paginated();
         $this->assertEquals(get_class($response), 'Illuminate\Pagination\LengthAwarePaginator');
         $this->assertEquals(0, $response->total());
     }

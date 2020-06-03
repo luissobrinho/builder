@@ -7,8 +7,24 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class FeatureServiceTest extends TestCase
 {
     use DatabaseMigrations;
+    /**
+     * @var FeatureService
+     */
+    private $service;
+    /**
+     * @var string
+     */
+    private $searchTerm;
+    /**
+     * @var array
+     */
+    private $originalArray;
+    /**
+     * @var array
+     */
+    private $editedArray;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $role = factory(App\Models\Role::class)->create();
@@ -29,7 +45,7 @@ class FeatureServiceTest extends TestCase
 
     public function testPaginated()
     {
-        $response = $this->service->paginated(25);
+        $response = $this->service->paginated();
         $this->assertEquals(get_class($response), 'Illuminate\Pagination\LengthAwarePaginator');
         $this->assertEquals(0, $response->total());
     }

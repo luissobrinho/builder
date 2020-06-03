@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Notification;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithAuthentication;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,7 +11,22 @@ class NotificationIntegrationTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public function setUp()
+    /**
+     * @var Notification
+     */
+    private $notification;
+
+    /**
+     * @var Notification
+     */
+    private $notificationEdited;
+
+    /**
+     * @var InteractsWithAuthentication
+     */
+    private $actor;
+
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,6 +50,7 @@ class NotificationIntegrationTest extends TestCase
         ]);
 
         $role = factory(App\Models\Role::class)->create();
+        /** @var \App\Models\User $user */
         $user = factory(App\Models\User::class)->create();
         $user->roles()->attach($role);
 

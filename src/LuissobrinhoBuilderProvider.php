@@ -3,8 +3,8 @@
 namespace Luissobrinho\Builder;
 
 use Luissobrinho\Builder\Console\Activity;
+use Luissobrinho\Builder\Console\Auditing;
 use Luissobrinho\Builder\Console\Api;
-use Luissobrinho\Builder\Console\Billing;
 use Luissobrinho\Builder\Console\Bootstrap;
 use Luissobrinho\Builder\Console\Features;
 use Luissobrinho\Builder\Console\Forge;
@@ -47,8 +47,8 @@ class LuissobrinhoBuilderProvider extends ServiceProvider
 
         $this->commands([
             Activity::class,
+            Auditing::class,
             Api::class,
-            Billing::class,
             Bootstrap::class,
             Features::class,
             Forge::class,
