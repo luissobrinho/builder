@@ -16,18 +16,22 @@ class RolesTableSeeder extends Seeder
             Role::create([
                 'name' => 'member',
                 'label' => 'Member',
+                'permissions' => 'member'
             ]);
             Role::create([
                 'name' => 'admin',
                 'label' => 'Admin',
+                'permissions' => 'admin,member,regular,app,dev'
             ]);
             Role::create([
                 'name' => 'app',
                 'label' => 'App',
+                'permissions' => 'app'
             ]);
             Role::create([
                 'name' => 'regular',
                 'label' => 'Regular',
+                'permissions' => 'regular'
             ]);
         }
     }
