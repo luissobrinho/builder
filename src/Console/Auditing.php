@@ -2,7 +2,6 @@
 
 namespace Luissobrinho\Builder\Console;
 
-use Luissobrinho\Builder\Console\LuissobrinhoCommand;
 use Luissobrinho\Builder\Traits\FileMakerTrait;
 use Illuminate\Filesystem\Filesystem;
 
@@ -27,7 +26,7 @@ class Auditing extends LuissobrinhoCommand
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -42,7 +41,7 @@ class Auditing extends LuissobrinhoCommand
 
             $this->info("\n\nThese files will be published\n");
 
-            $result = $this->confirm('Are you sure you want to overwrite any files of the same name?');
+            $result = $this->confirm('Are you sure you want to overwrite any files of the same name?', true);
 
             if ($result) {
                 $this->copyPreparedFiles(__DIR__.'/../Packages/Auditing', base_path());

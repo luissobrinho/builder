@@ -11,15 +11,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
+ * Class User
+ *
  * @property int id
  * @property string name
  * @property string email
  * @property string password
  * @property Collection roles
  * @property Collection teams
- * @method Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method $this where($column, $operator = null, $value = null, $boolean = 'and')
  *
- * Class User
  * @package App\Models
  */
 class User extends Authenticatable
