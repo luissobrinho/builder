@@ -9,12 +9,31 @@ class TeamServiceTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @var TeamService
+     */
     protected $service;
-    protected $userService;
-    protected $originalArray;
-    protected $editedArray;
 
-    public function setUp()
+    /**
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
+     * @var array
+     */
+    protected $originalArray;
+
+    /**
+     * @var array
+     */
+    protected $editedArray;
+    /**
+     * @var string
+     */
+    protected $searchTerm;
+
+    public function setUp(): void
     {
         parent::setUp();
         $this->service = $this->app->make(TeamService::class);

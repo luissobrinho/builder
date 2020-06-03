@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Role;
+use App\Models\Team;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithAuthentication;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,13 +12,32 @@ class TeamIntegrationTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
+    /**
+     * @var \App\Models\User
+     */
     protected $user;
+
+    /**
+     * @var Role
+     */
     protected $role;
+
+    /**
+     * @var Team
+     */
     protected $team;
+
+    /**
+     * @var Team
+     */
     protected $teamEdited;
+
+    /**
+     * @var InteractsWithAuthentication
+     */
     protected $actor;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->user = factory(App\Models\User::class)->create([
@@ -65,6 +87,7 @@ class TeamIntegrationTest extends TestCase
 
     public function testEdit()
     {
+        /** @var \App\Models\User $admin */
         $admin = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
         $admin->roles()->attach($this->role);
         $this->actingAs($admin)->call('POST', 'teams', $this->team->toArray());
@@ -76,6 +99,7 @@ class TeamIntegrationTest extends TestCase
 
     public function testUpdate()
     {
+        /** @var \App\Models\User $admin */
         $admin = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
         $admin->roles()->attach($this->role);
         $this->actingAs($admin)->call('POST', 'teams', $this->team->toArray());
@@ -89,7 +113,9 @@ class TeamIntegrationTest extends TestCase
 
     public function testDelete()
     {
+        /** @var \App\Models\User $admin */
         $admin = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
+        /** @var Team $team */
         $team = factory(App\Models\Team::class)->create([
             'user_id' => $admin->id,
             'name' => 'Awesomeness'

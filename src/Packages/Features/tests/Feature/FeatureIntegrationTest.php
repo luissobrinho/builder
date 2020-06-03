@@ -12,7 +12,7 @@ class FeatureIntegrationTest extends \PHPUnit\Framework\TestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

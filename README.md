@@ -2,6 +2,7 @@
 
 **Builder** - A handful of tools for Rapid Laravel Development
 
+[![Latest Version](https://img.shields.io/packagist/v/luissobrinho/builder.svg)](https://packagist.org/packages/luissobrinho/builder)
 [![Build Status](https://travis-ci.org/luissobrinho/builder.svg?branch=develop)](https://travis-ci.org/Luissobrinho/Builder)
 [![Packagist](https://img.shields.io/packagist/dt/luissobrinho/builder.svg)](https://packagist.org/packages/luissobrinho/builder)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/luissobrinho/builder)
@@ -773,11 +774,29 @@ Finally set the access details in the services config:
 ],
 ```
 
-##### What Socialite publishes
-The command will overwrite any existing files with the socialite version of them:
+### Auditing
 
-* app/Http/Controllers/Auth/SocialiteAuthController.php
-* routes/socialite.php
+This package will help you understand changes in your Eloquent models, by providing information about possible discrepancies and anomalies that could indicate business concerns or suspect activities.
+
+##### Requires
+```php
+composer require owen-it/laravel-auditing
+```
+
+Essentially you want to do all the basic setup for Laravel Auditing such as everything in here:
+Then follow the directions regarding installation on: [http://www.laravel-auditing.com/docs/9.0/installation](http://www.laravel-auditing.com/docs/9.0/installation)
+
+##### Setup
+```
+php artisan luissobrinho:auditing
+```
+
+##### What Auditing publishes
+The command will overwrite any existing files with the auditing version of them:
+
+* resources/lcrud/Model.txt
+* app/Listeners/AuditedListener.php
+* app/Listeners/AuditingListener.php
 
 ## License
 Luissobrinho Builder is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

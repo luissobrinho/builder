@@ -6,7 +6,7 @@
         </testsuite>
     </testsuites>
     <php>
-        <const name="PHPUNIT_TEST_SUITE" value="true"/>
+        <env name="APP_NO_TEST" value="false"/>
         <const name="APP_ENV" value="testing"/>
         <const name="BCRYPT_ROUNDS" value="4"/>
         <const name="CACHE_DRIVER" value="array"/>
