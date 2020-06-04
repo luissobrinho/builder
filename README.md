@@ -20,7 +20,7 @@ This is a set of tools to help speed up development of Laravel apps. You can sta
 ## Compatibility and Support
 | Laravel Version | Package Tag | Supported |
 |-----------------|-------------|-----------|
-| 6.x - 7.x | 0.0.10 | yes |
+| 6.x - 7.x | 0.0.11 | yes |
 
 ## Installation
 
@@ -797,6 +797,53 @@ The command will overwrite any existing files with the auditing version of them:
 * resources/lcrud/Model.txt
 * app/Listeners/AuditedListener.php
 * app/Listeners/AuditingListener.php
+
+### Debugbar
+
+This is a package to integrate the debugging bar for Laravel. You can publish assets and configure it through Laravel. Even when the bar is disabled in `APP_DEBUG = false` it is possible to enable it using the "Dev" permission placed by the Start package.
+
+##### Requires
+```php
+composer require barryvdh/laravel-debugbar --dev
+```
+
+Essentially you want to do all the basic setup for Laravel Debugbar such as everything in here:
+Then follow the directions regarding installation on: [https://github.com/barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+
+##### Setup
+```
+php artisan luissobrinho:debugbar
+```
+
+Insert the Middleware in the Kernel.php file of the $ middlewareGroups variable in the web index
+
+```php
+protected $middlewareGroups = [
+    'web' => [
+        // ...
+        \App\Http\Middleware\DebugMiddleware::class
+    ],
+    
+    'api' => [
+        // ...
+    ] 
+];
+```
+
+###### Optional
+
+Disable laravel debugging by changing the value of the `APP_DEBUG` variable to false in the `.env` file
+
+```dotenv
+APP_DEBUG=false
+```
+
+##### What DebugBar publishes
+The command will overwrite any existing files with the debugbar version of them:
+
+* app/Http/Middleware/DebugMiddleware.php
+
+<hr>
 
 ## License
 Luissobrinho Builder is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
