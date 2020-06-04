@@ -48,7 +48,7 @@ class DebugBar extends LuissobrinhoCommand
                 $this->copyPreparedFiles(__DIR__.'/../Packages/DebugBar', base_path());
                 $this->info("\n\n Please review the setup details for debug bar.");
                 $this->info("\n\n You will want to add things like:");
-                $this->line("\n Insert this code in the Kernel.php file for the $ middlewareGroups variable in the web index: ");
+                $this->line("\n Insert this code in the Kernel.php file for the \$middlewareGroups variable in the web index: ");
                 $this->comment("\n protected \$middlewareGroups = [");
                 $this->comment("\n 'web' => [");
                 $this->comment("\n ...");
