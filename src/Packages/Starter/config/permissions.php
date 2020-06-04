@@ -17,5 +17,6 @@ return [
     'member' => 'Member',
     'regular' => 'Regular',
     'app' => 'App',
+    'dev' => 'Dev',
 
 ];

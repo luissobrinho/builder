@@ -6,6 +6,7 @@ use Luissobrinho\Builder\Console\Activity;
 use Luissobrinho\Builder\Console\Auditing;
 use Luissobrinho\Builder\Console\Api;
 use Luissobrinho\Builder\Console\Bootstrap;
+use Luissobrinho\Builder\Console\DebugBar;
 use Luissobrinho\Builder\Console\Features;
 use Luissobrinho\Builder\Console\Forge;
 use Luissobrinho\Builder\Console\Logs;
@@ -50,6 +51,7 @@ class LuissobrinhoBuilderProvider extends ServiceProvider
             Auditing::class,
             Api::class,
             Bootstrap::class,
+            DebugBar::class,
             Features::class,
             Forge::class,
             Logs::class,
